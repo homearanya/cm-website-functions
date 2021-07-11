@@ -11,6 +11,26 @@ const headers = {
 const fetch = require("node-fetch")
 
 exports.handler = async event => {
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 200, // <-- Important!
+      headers,
+      body: "This was not a POST request!",
+    }
+  }
+
+  // some error checking:
+  if (event.httpMethod !== "POST" || !event.body) {
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({
+        status: "bad-payload",
+        message: "Incorrect or incomplete http request",
+      }),
+    }
+  }
+
   const { email } = JSON.parse(event.body)
   try {
     const response = await fetch(
