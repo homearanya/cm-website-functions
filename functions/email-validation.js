@@ -25,15 +25,15 @@ exports.handler = async event => {
     }
     return {
       statusCode: 200,
-      body: JSON.stringify({ valid: validEmail }),
       headers,
+      body: JSON.stringify({ valid: validEmail }),
     }
   } catch (error) {
     console.log(error)
     return {
       statusCode: 500,
-      body: "Error in validation",
       headers,
+      body: "Error in validation",
     }
   }
 }
